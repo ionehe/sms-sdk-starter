@@ -1,0 +1,23 @@
+sms:
+  vendor: bjlingxianhulian # 客户端配置，以下为目前已支持的所有客户端配置示例，使用者根据实际场景配置一种即可
+  vendors:
+    # 验证码类型templates固定为VerificationCode；通知类型自定义；paramsOrders为短信模板中的参数顺序
+    # 发送验证码，不要修改VerificationCode
+    aliyun: { endpoint: cn-hangzhou, accessKeyId: abcd, accessKeySecret: abcd,
+              signName: abcd, templates: {VerificationCode: code}}
+    bjlingxianhulian: { endpoint: 101.200.29.88:8082/SendMT/SendMessage, accessKeyId: abcd, accessKeySecret: abcd,
+                        signName: abcd, templates: {VerificationCode: '验证码${code}，您正在尝试修改登录密码，请妥善保管账户信息。'}}
+    qcloud: { appId: abcd, appKey: abcd,
+              signName: abcd, templates: {VerificationCode: abcd}, paramsOrders: {VerificationCode: [code]}}
+  verificationCode:
+    codeLength: 4 # 验证码长度
+    expirationTime: 300 # 验证码过期时间单位秒
+    retryIntervalTime: 60 # 重新发送验证码间隔时间,小于等于0表示不启用,单位秒
+    templateHasExpirationTime: true # 模版中是否有过期时间字段
+    deleteByVerifySucceed: true # 认证成功后删除验证码
+
+# Logging Config
+logging:
+  config: classpath:logback.xml
+  level:
+    root: info
